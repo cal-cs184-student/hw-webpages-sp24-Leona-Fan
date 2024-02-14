@@ -14,6 +14,23 @@
 </head>
 <body>
     <h1>Homework 1</h1>
+	<!-- Overview -->
+    <section>
+        <h2>Overview</h2>
+
+        <ol>
+            In this assignment, we implemented a Rasterizer with basic functionality using software.<br>
+			Specifically, we started by rendering triangles and then applied the supersampling technique for anti-aliasing.<br>
+			We also implemented several basic transformations and applied them to hierarchical represented skeletons, reviewing the theoretical aspects of transformations.<br>
+			Next, we implemented barycentric coordinate calculations, laying the groundwork for rendering colors and implementing texture mapping.<br>
+			Finally, we implemented a texture mapping renderer that supports different pixel sampling methods (PSM) and level sampling methods (LSM).<br>
+			In summary, rasterizing is a method of mapping abstract graphics (geometry, colors, textures, and perhaps lighting, shadows, etc.) onto a raster display.<br>
+			In practical terms, this usually involves calculating the mapping relationship between pixels and colors and transmitting it to a frame buffer for display.<br>
+			Webpage: 
+			<a href=" ">https://github.com/cal-cs184-student/hw-webpages-sp24-Leona-Fan/blob/master/hw1/index.html</a>
+			<a href=" ">https://github.com/cal-cs184-student/hw-webpages-sp24-Bevuxna/blob/master/hw1/index.html</a>
+        </ol>
+    </section>
 
     <!-- Task 1 -->
     <section>
@@ -126,28 +143,62 @@
     <!-- Task 5 -->
     <section>
         <h2>Task 5: "Pixel sampling" for texture mapping </h2>
-        <p>Description of Task 5 here...</p>
 
         <!-- Task 5 Questions -->
         <ol>
-            <li>Question 1: Description of Question 1 for Task 5 here...</li>
-            <li>Question 2: Description of Question 2 for Task 5 here...</li>
-            <li>Question 3: Description of Question 3 for Task 5 here...</li>
-            <li>Question 4: Description of Question 4 for Task 5 here...</li>
+            <li>Pixel sampling is how to determine the color mapping relationship between the screen pixel and the texels in its footprint in the texture(uv) space.<br>
+				We implement them as two functions which takes uv coordinates as parameters and return the color determined by the method.<br>
+				Nearest: Choose the color of whichever texel's closest to the screen pixel's footprint.<br>
+				Bilinear: Linear interpolating the four neighbor texel's colors as the pixel's color.</li>
+            <li>Let's show the rendering result of svg/texmap/test1.svg<br>
+				Upleft: PSM = nearest, Sampling_rate = 1; Upright: PSM = bilinear, Sampling_rate = 1;<br>
+				Bottomleft: PSM = nearest, Sampling_rate = 16; Bottomright: PSM = bilinear, Sampling_rate = 16;<br>
+				<div style="display: flex;">
+				<img src="screenshot_2-14_15-9-11.png"  width="600" height="450">
+				<img src="screenshot_2-14_15-9-18.png"  width="600" height="450">
+				</div>
+				<div style="display: flex;">
+				<img src="screenshot_2-14_15-9-58.png" width="600" height="450">
+				<img src="screenshot_2-14_15-10-3.png"  width="600" height="450">
+				</div>
+			</li>
+            <li>As we can see clearly from the white longitudes, the result of bilinear defeats nearest.<br>
+				The difference is clearer when the gradient of color is huge and when the sampling rate is low<br>
+				(if the sampling rate is high, then how to select the color out of the one-sixteenth texel doesn't really matter.)</li>
         </ol>
     </section>
 
     <!-- Task 6 -->
     <section>
         <h2>Task 6: "Level sampling" with mipmaps for texture mapping </h2>
-        <p>Description of Task 6 here...</p>
 
         <!-- Task 6 Questions -->
         <ol>
-            <li>Question 1: Description of Question 1 for Task 6 here...</li>
-            <li>Question 2: Description of Question 2 for Task 6 here...</li>
-            <li>Question 3: Description of Question 3 for Task 6 here...</li>
-            <li>Question 4: Description of Question 4 for Task 6 here...</li>
+            <li>Level sampling is how to determine the color out of the texels on different mipmap levels.<br>
+				We implement it in function "Texture::sample", calling the get_level function to get the float D number and determine what color to return, the nearest level or lerping between two neighbor levels.<br></li>
+            <li>In terms of speed, PSM doesn't really make a difference(it's only about selecting in O(1)), but using linear will make it a bit slower;<br>
+					Choosing to use mipmap technique will slow it down because we need to calculate the d values and calculate on different mipmap levels;<br>
+					Supersampling rate will make a huge difference because we need to process n^2 more times for each pixel.<br>
+					In terms of memory usage, apparently PSM doesn't make a difference;<br>
+					Choosing to use mipmap technique will increase the memory usage by about 1.33 (need to store each level of mipmaps, one forth, one sixteenth...);<br>
+					Supersampling rate won't make a huge difference on memory usage.<br>
+					In terms of anti-aliasing power, PSM: bilinear is better than nearest;<br>
+					LSM: Linear is better than nearest;<br>
+					The larger the supersampling rate, the better the result would be.<br>
+				</li>
+            <li>Let's show the rendering result of svg/texmap/test1.svg<br>
+				Upleft: PSM = nearest, LSM = zero; Upright: PSM = bilinear, LSM = Zero;<br>
+				Bottomleft: PSM = nearest, LSM = nearest; Bottomright: PSM = bilinear, LSM = nearest;<br>
+				<div style="display: flex;">
+				<img src="screenshot_2-14_15-9-11.png"  width="600" height="450">
+				<img src="screenshot_2-14_15-9-18.png"  width="600" height="450">
+				</div>
+				<div style="display: flex;">
+				<img src="screenshot_2-14_15-9-26.png" width="600" height="450">
+				<img src="screenshot_2-14_15-9-30.png"  width="600" height="450">
+				</div>
+			</li>
+            
         </ol>
     </section>
 </body>
