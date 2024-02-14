@@ -1,7 +1,154 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Homework 1 index.html here
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 1</title>
+	<title>Center Image in HTML</title>
+	<style>
+		.center {
+			display: flex;
+			justify-content: center;
+		}
+	</style>
+</head>
+<body>
+    <h1>Homework 1</h1>
+
+    <!-- Task 1 -->
+    <section>
+        <h2>Task 1: Drawing Single-Color Triangles</h2>
+
+        <!-- Task 1 Questions -->
+        <ol>
+            <li>Rasterize Triangles<br>
+			We first find the bounding box that just enclose the triangle. 
+			Then we go through each pixel in the rectangle using funtion "insideTriangle" to detemine whether it is in the Triangle.
+			Function "insideTriangle" uses the cross product of vectors formed by the vertices and the test point to determine if the point lies inside the triangle. </li><br>
+            <li>Compare with the method that checks each sample within the bounding box of the tirangle<br>
+			It's just the same.</li><br>
+            <li>Image</li>
+			<div class="center">
+				<img src="1.png" alt="no Supersampling" width="300" height="200">
+			</div>
+			<div class="center">
+				no Supersampling
+			</div>
+			
+        </ol>
+    </section>
+
+    <!-- Task 2 -->
+    <section>
+        <h2>Task 2: Antialiasing by Supersampling</h2>
+
+        <!-- Task 2 Questions -->
+        <ol>
+            <li>Why supersampling useful?<br>
+			By using it, we can have smootehr lines and fewer jaggies, thus enhance antialiasing and improve image quality. 
+			Besides, it can reduce rendering artifacts and handle subpixel details.</li><br>
+            <li>Modifications & Use supersampling to antialiasing triangles<br>
+			Firstly, the size of framebuff should be expanded to smaple_rate times the original size.
+			Then rasterizing is similiar but using the bigger sample_buffer.
+			At last, we need to average each subpixels to get the color</li><br>
+            <li>Image</li>
+			<div class="center">
+				<img src="1.png" alt="no Supersampling" width="300" height="200">
+			</div>
+			<div class="center">
+				no Supersampling
+			</div>
+			<div class="center">
+				<img src="2.png" alt="no Supersampling" width="300" height="200">
+			</div>
+			<div class="center">
+				sample rate: 4
+			</div>
+			<div class="center">
+				<img src="4.png" alt="no Supersampling" width="300" height="200">
+			</div>
+			<div class="center">
+				sample rate: 16
+			</div>
+			Using supersampling, we can get smoother lines and fewer jaggies because at the edges of triangles, colors are sampled by subpixels and then averaged.
+        </ol>
+    </section>
+
+    <!-- Task 3 -->
+    <section>
+        <h2>Task 3: Transforms</h2>
+
+        <!-- Task 3 Questions -->
+        <ol>
+            <li>Transforms</li>
+			<div class="center">
+				<img src="5.png" alt="no Supersampling" width="200" height="200">
+			</div>
+			<div class="center">
+				Waving
+			</div>
+			In this part, we try to show a cubeman waving by rotating all his left arm.<br>
+			<div class="center">
+				<img src="6.png" alt="no Supersampling" width="200" height="200">
+			</div>
+			<div class="center">
+				Dancing
+			</div>
+			In this part, we try to show a cubeman doing ballet. Basing on the previous change, we continue to rotate and translate his left arm.
+			Also, we translate and rotate his thigh and leg. Finally we change his color to cyan.
+        </ol>
+    </section>
+
+    <!-- Task 4 -->
+    <section>
+        <h2>Task 4: Barycentric coordinates</h2>
+		
+        <!-- Task 4 Questions -->
+        <ol>
+            <li>Barycentric coordinates.</li>
+			Barycentric coordinates are used to determine the position of a point within a triangle. In other words, We use the three vertices of a triangle to represent a point<br>
+            <div class="center">
+				<img src="8.png" alt="no Supersampling" width="200" height="200">
+			</div>
+			<div class="center">
+				smoothly blended color triangle
+			</div>
+			<li>Image</li>
+			<div class="center">
+				<img src="7.png" alt="no Supersampling" width="200" height="150">
+			</div>
+			<div class="center">
+				svg/basic/test7.svg
+			</div>
+        </ol>
+    </section>
+
+    <!-- Task 5 -->
+    <section>
+        <h2>Task 5: "Pixel sampling" for texture mapping </h2>
+        <p>Description of Task 5 here...</p>
+
+        <!-- Task 5 Questions -->
+        <ol>
+            <li>Question 1: Description of Question 1 for Task 5 here...</li>
+            <li>Question 2: Description of Question 2 for Task 5 here...</li>
+            <li>Question 3: Description of Question 3 for Task 5 here...</li>
+            <li>Question 4: Description of Question 4 for Task 5 here...</li>
+        </ol>
+    </section>
+
+    <!-- Task 6 -->
+    <section>
+        <h2>Task 6: "Level sampling" with mipmaps for texture mapping </h2>
+        <p>Description of Task 6 here...</p>
+
+        <!-- Task 6 Questions -->
+        <ol>
+            <li>Question 1: Description of Question 1 for Task 6 here...</li>
+            <li>Question 2: Description of Question 2 for Task 6 here...</li>
+            <li>Question 3: Description of Question 3 for Task 6 here...</li>
+            <li>Question 4: Description of Question 4 for Task 6 here...</li>
+        </ol>
+    </section>
+</body>
 </html>
