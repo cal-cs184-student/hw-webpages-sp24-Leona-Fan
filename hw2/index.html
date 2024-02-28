@@ -1,7 +1,219 @@
-<html>
-	<head>
-	</head>
-	<body>
-		Homework 2 index.html here
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homework 1</title>
+	<title>Center Image in HTML</title>
+	<style>
+		.center {
+			display: flex;
+			justify-content: center;
+		}
+	</style>
+</head>
+<body>
+    <h1>Homework 2</h1>
+	<!-- Overview -->
+    <section>
+        <h2>Overview</h2>
+		Firstly, we implemented Bezier curves and Bezier surfaces using de Casteljau algorithm. Our implementation of Bezier curves allows us to define and evaluate smooth curves using control points.
+		Second,  we have embarked on a step-by-step journey to implement mesh subdivision techniques. 
+		Beginning with basic operations like edge flips and splits, we gradually progressed to more advanced techniques such as Loop subdivision. 
+		This process involves refining the mesh by subdividing each face into smaller faces and adjusting vertex positions to achieve smoother surfaces.
+
+        <ol>
+            In this assignment, 
+			Webpage: <br>
+			Zimo Fan:<a href=" ">https://github.com/cal-cs184-student/hw-webpages-sp24-Leona-Fan/blob/master/hw2/index.html</a><br>
+			Xinzhe Wei:<a href=" ">https://github.com/cal-cs184-student/hw-webpages-sp24-Bevuxna/blob/master/hw2/index.html</a>
+        </ol>
+    </section>
+
+    <!-- Part 1 -->
+    <section>
+        <h2>Part 1:Bezier Curves with 1D de Casteljau Subdivision</h2>
+
+        <!-- Part 1 Questions -->
+        <ol>
+            <li>de Casteljau algorithm<br>
+			De Casteljau's algorithm is a method used to evaluate points on a Bezier curve. 
+			It recursively divides a set of control points into smaller sets until only one point remains, which represents a point on the Bezier curve.<br>
+			In our code, we calculating linear interpolations (lerp) between adjacent control points based on a parameter t. 
+			</li><br>
+            <li>Bezier curve with 6 control points</li>
+			<div class="center">
+				<img src="1.png" alt="Bezier curve with 6 control points" width="300" height="200">
+			</div>
+			<div class="center">
+				Bezier curve with 6 control points
+			</div>
+			<li>Bezier curve</li>
+			<div class="center">
+			<img src="2.png" alt="2" width="150" height="100">
+			<img src="3.png" alt="3" width="150" height="100">
+			<img src="4.png" alt="4" width="150" height="100">
+			<img src="5.png" alt="5" width="150" height="100">
+			<img src="6.png" alt="6" width="150" height="100">
+			<img src="7.png" alt="7" width="150" height="100">
+			<img src="8.png" alt="8" width="150" height="100">
+			<img src="9.png" alt="9" width="150" height="100">
+			</div>
+			<div class="center">
+				Bezier curve
+			</div>
+			<li>Changing Bezier curve</li>
+			<div class="center">
+			<img src="10.png" alt="2" width="150" height="100">
+			<img src="11.png" alt="3" width="150" height="100">
+			</div>
+			<div class="center">
+				Changing Bezier curve
+			</div>
+			
+			<video class="center" src="1.mp4" controls></video>
+			
+			<div class="center">
+				Changing Bezier curve video
+			</div>
+        </ol>
+    </section>
+
+    <!-- Part 2 -->
+    <section>
+        <h2>Part 2:Bezier Surfaces with Separable 1D de Casteljau</h2>
+
+        <!-- Part 2 Questions -->
+        <ol>
+            <li>de Casteljau algorithm extends to Bezier surfaces<br>
+				De Casteljau's algorithm can be extended to evaluate Bezier surfaces by performing two-dimensional interpolation.<br>
+				In our code, we first evaluate each row of control points using evaluate1D which repeatedly calles evaluateStep until only one points remain. 
+				Then, it evaluates these intermediate points along the v direction using evaluate1D again. </li><br>
+            <li>Image</li>
+			<div class="center">
+				<img src="12.png" alt="teapot.bez" width="300" height="200">
+			</div>
+			<div class="center">
+				teapot.bez
+			</div>
+        </ol>
+    </section>
+
+    <!-- Part 3 -->
+    <section>
+        <h2>Part 3: Aread-Weighted Vertex Normals</h2>
+
+        <!-- Part 3 Questions -->
+        <ol>
+            <li> area-weighted vertex normals <br>
+				We iterate ouver all adjacent halfedges ensuring that we traverse all halfedges around the vertex. 
+				For each halfedge, we calculate the normal of the triangle formed by the two edges and the vertex using the cross product of two edge vectors. This ensures that the vertex normals are area-weighted.
+				We then add the normal of the triangle to the sum. We can move to the next edge by accessing the twin of the current halfedge and then its next halfedge.
+				Finally, we normalize sum.
+			</li><br>
+			<li>Image</li>
+			<div class="center">
+				<img src="5.png" alt="teapot.dae" width="200" height="200">
+			</div>
+			<div class="center">
+				teapot.dae
+			</div>
+        </ol>
+    </section>
+
+    <!-- Part 4 -->
+    <section>
+        <h2>Part 4: Edge Flip</h2>
+		
+        <!-- Part 4 Questions -->
+        <ol>
+            <li>edge split operation<br>
+			To do this operation, we first obtain four vertices and faces associated with the halfedge.
+			Then we update the pointers of the neighboring halfedges to reflect the new connectivity after the flip operation.
+			Thirdly, we update vertex and face pointers. Finally we update the pointers of the edges to their respective halfedges.<br></li>
+
+            <li>flips</li>
+			<div class="center">
+				<img src="5.png" alt="befor flips" width="200" height="200">
+			</div>
+			<div class="center">
+				before flips
+			</div>
+			<div class="center">
+				<img src="5.png" alt="after flips" width="200" height="200">
+			</div>
+			<div class="center">
+				after flips
+			</div>
+        </ol>
+    </section>
+
+    <!-- Part 5 -->
+    <section>
+        <h2>Part 5: Edge Split </h2>
+
+        <!-- Part 5 Questions -->
+        <ol>
+			<li>edge split operation<br>
+			We first create new geometric elements, then we reassigning existing halfedges and 
+			update pointers to maintain the connectivity and consistency of the mesh data structure after splitting the edge<br></li>
+
+			<li>splits</li>
+			<div class="center">
+				<img src="5.png" alt="befor splits" width="200" height="200">
+			</div>
+			<div class="center">
+				before splits
+			</div>
+			<div class="center">
+				<img src="5.png" alt="after splits" width="200" height="200">
+			</div>
+			<div class="center">
+				after splits
+			</div>
+
+			<li>splits and flips</li>
+			<div class="center">
+				<img src="5.png" alt="befor splits" width="200" height="200">
+			</div>
+			<div class="center">
+				before flips and splits
+			</div>
+			<div class="center">
+				<img src="5.png" alt="after splits" width="200" height="200">
+			</div>
+			<div class="center">
+				after flips and splits
+			</div>
+        </ol>
+    </section>
+
+    <!-- Part 6 -->
+    <section>
+        <h2>Part 6: Loop Subdivision for Mesh Upsampling </h2>
+
+        <!-- Part 6 Questions -->
+        <ol>
+            <li> loop subdivision <br>
+
+			</li><br>
+			<li>Image</li>
+			<div class="center">
+				<img src="5.png" alt="meshes behave" width="200" height="200">
+			</div>
+			<div class="center">
+				meshes behave
+			</div>
+			<li>Image</li>
+			<div class="center">
+				<img src="5.png" alt="loop subdivision" width="200" height="200">
+			</div>
+			<div class="center">
+				loop subdivision
+			</div>
+			</li>
+            
+        </ol>
+    </section>
+</body>
 </html>
