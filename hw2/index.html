@@ -17,10 +17,10 @@
 	<!-- Overview -->
     <section>
         <h2>Overview</h2>
-		Firstly, we implemented Bezier curves and Bezier surfaces using de Casteljau algorithm. Our implementation of Bezier curves allows us to define and evaluate smooth curves using control points.
+		Firstly, we implemented Bezier curves and Bezier surfaces using de Casteljau algorithm. Our implementation of Bezier curves allows us to define and evaluate smooth curves using control points.<br>
 		Second,  we have embarked on a step-by-step journey to implement mesh subdivision techniques. 
-		Beginning with basic operations like edge flips and splits, we gradually progressed to more advanced techniques such as Loop subdivision. 
-		This process involves refining the mesh by subdividing each face into smaller faces and adjusting vertex positions to achieve smoother surfaces.
+		Beginning with basic operations like edge flips and splits, we gradually progressed to more advanced and practical tool as Loop subdivision. 
+		Furthermore, we've implemented sqrt 3 subdivision and achieved pretty nice effects.
 
         <ol>
             In this assignment, 
@@ -101,22 +101,19 @@
 
     <!-- Part 3 -->
     <section>
-        <h2>Part 3: Aread-Weighted Vertex Normals</h2>
+        <h2>Part 3: Area-Weighted Vertex Normals</h2>
 
         <!-- Part 3 Questions -->
         <ol>
-            <li> area-weighted vertex normals <br>
-				We iterate ouver all adjacent halfedges ensuring that we traverse all halfedges around the vertex. 
-				For each halfedge, we calculate the normal of the triangle formed by the two edges and the vertex using the cross product of two edge vectors. This ensures that the vertex normals are area-weighted.
-				We then add the normal of the triangle to the sum. We can move to the next edge by accessing the twin of the current halfedge and then its next halfedge.
-				Finally, we normalize sum.
+            <li> How we implemented this: <br>
+				The function Vertex::normal() takes in a vertex and we iterate over all adjacent halfedges ensuring that we traverse all adjacent faces. <br>
+				Then for each face, we calculate its area-weighted normal using cross product of two of the edges.<br>
+				Finally, add the normals and return the normalized sum.<br>
 			</li><br>
-			<li>Image</li>
-			<div class="center">
-				<img src="5.png" alt="teapot.dae" width="200" height="200">
-			</div>
-			<div class="center">
-				teapot.dae
+			<li> Here shows the effect of Phong shading based on the normals calculated.</li>
+			<div style="display: flex;">
+			<img src="q3_1.png"  width="600" height="450">
+			<img src="q3_2.png"  width="600" height="450">
 			</div>
         </ol>
     </section>
@@ -127,24 +124,28 @@
 		
         <!-- Part 4 Questions -->
         <ol>
-            <li>edge split operation<br>
-			To do this operation, we first obtain four vertices and faces associated with the halfedge.
-			Then we update the pointers of the neighboring halfedges to reflect the new connectivity after the flip operation.
-			Thirdly, we update vertex and face pointers. Finally we update the pointers of the edges to their respective halfedges.<br></li>
-
-            <li>flips</li>
+            <li> How we implemented this: <br>
+				To do this operation, we first obtain four vertices, two faces and ten halfedges (including the outer ones) associated with the input edge.<br>
+				Then we update the iterators to reflect the new connectivity after the flip operation. Return the flipped edge.
+			<br></li>
 			<div class="center">
-				<img src="5.png" alt="befor flips" width="200" height="200">
+				<img src="flip.png" alt="befor flips" width="800" height="1000">
 			</div>
 			<div class="center">
-				before flips
+				Flip details
 			</div>
+			<li> A small bug I encountered: <br>
+			At first I only updated the halfedge iterators and forgot about the vertices/edges/faces. The flipping effect was like:
+			<br></li>
 			<div class="center">
-				<img src="5.png" alt="after flips" width="200" height="200">
+				<img src="q4bug.png" alt="befor flips" width="500" height="400">
 			</div>
-			<div class="center">
-				after flips
-			</div>
+			Looking at it I realized that one of the faces must hasn't been assigned for there's a hollow face. Then I remembered to do it and fixed the bug.
+            <li> Here we show the effect. </li>
+			<div style="display: flex;">
+				<img src="q4unflipped.png"  width="600" height="450">
+				<img src="q4flipped.png"  width="600" height="450">
+				</div>
         </ol>
     </section>
 
@@ -154,36 +155,35 @@
 
         <!-- Part 5 Questions -->
         <ol>
-			<li>edge split operation<br>
-			We first create new geometric elements, then we reassigning existing halfedges and 
-			update pointers to maintain the connectivity and consistency of the mesh data structure after splitting the edge<br></li>
-
-			<li>splits</li>
+			<li>How we implemented this: <br>
+				To do this operation, we first obtain four vertices, two faces and ten halfedges (including the outer ones) associated with the input edge.<br>
+			Then we create the elements newly added by the split operation and assign or reassign the connectivity relationships as shown below.<br>
+			To lay the ground work for q6, we also assign the e5 and e7 edges as well as v5 as "newly added" (will elaborate in q6).
+				<br></li>
+				<div class="center">
+					<img src="split.png" alt="befor flips" width="800" height="1000">
+				</div>
+				<div class="center">
+					Split details
+				</div>
+			<li> Here we show the effect. </li>
 			<div class="center">
-				<img src="5.png" alt="befor splits" width="200" height="200">
+				<img src="cube.png" alt="befor splits" width="600" height="400">
 			</div>
 			<div class="center">
-				before splits
+				Before splits
 			</div>
 			<div class="center">
-				<img src="5.png" alt="after splits" width="200" height="200">
+				<img src="q5splitted.png" alt="after splits" width="600" height="400">
 			</div>
 			<div class="center">
-				after splits
-			</div>
-
-			<li>splits and flips</li>
-			<div class="center">
-				<img src="5.png" alt="befor splits" width="200" height="200">
+				After splits
 			</div>
 			<div class="center">
-				before flips and splits
+				<img src="q5splitandflip.png" alt="after splits" width="600" height="400">
 			</div>
 			<div class="center">
-				<img src="5.png" alt="after splits" width="200" height="200">
-			</div>
-			<div class="center">
-				after flips and splits
+				After flips and splits
 			</div>
         </ol>
     </section>
@@ -194,25 +194,80 @@
 
         <!-- Part 6 Questions -->
         <ol>
-            <li> loop subdivision <br>
-
+            <li> How we implemented this: <br>
+				We first compute the new positions according to the updating rules. (But not update them yet because we need to use the old values to calculate the coordinates of the newly added vertices later on.)<br>
+				Then we calculate the updated vertex positions associated with edges.<br>
+				Thirdly we execute the split operations on all of the old edges. During which we set the edges we want to flip and the newly added vertices as "isNew", they will be the necessary and sufficient conditions to flip an edge in the next step. (All vertices and edges are initialized as "isNew: False" in the first two steps.)<br>
+				Forthly, flip the edges iff the edge is new and it connects a new and an old vertex.<br>
+				Last but not least, update the positions of the vertices calculated before. Then we're done!
 			</li><br>
-			<li>Image</li>
-			<div class="center">
-				<img src="5.png" alt="meshes behave" width="200" height="200">
-			</div>
-			<div class="center">
-				meshes behave
-			</div>
-			<li>Image</li>
-			<div class="center">
-				<img src="5.png" alt="loop subdivision" width="200" height="200">
-			</div>
-			<div class="center">
-				loop subdivision
-			</div>
+			<li> The effects of loop subdivision and how we can reduce them: <br>
+				As we can see in the left column, if we apply loop subdivision multiple times on the cube mesh, we get a gradually smoother surface, the sharp edges/corners collapses and become smooth. Also because of the asymmetrical property of the original mesh, we get asymmetric shapes after loop subdivisions.<br>
+				To reduce the smoothing effect, we can pre-split some edges shown in the middle column below. The key observation is that, the denser the mesh in some area, the more it tend to maintain its shape. That's because changing the mesh topology will lead to change in geometrical shapes, but the smaller the faces are, the smaller the changes would be. As shown in the middle column, after pre-splitting the edges close to a corner, it tends to keep its shape.<br>
+				To make the cube subdivides symmetrically, one thing we can do is to make the mesh symmetrical. For instance, if we split the diagonal of each face of the cube, we can make the mesh symmetry, and hence it subdivides symmetrically, as shown in the right column below.<br>
 			</li>
+			<div style="display: flex;">
+			<img src="q6cube.png"  width="500" height="350">
+			<img src="q6sharp0.png"  width="500" height="350">
+			<img src="q6sym0.png"  width="500" height="350">
+			</div>
+
+			<div style="display: flex;">
+			<img src="q6l1.png"  width="500" height="350">
+			<img src="q6sharp1.png"  width="500" height="350">
+			<img src="q6sym1.png"  width="500" height="350">
+			</div>
+
+			<div style="display: flex;">
+			<img src="q6l2.png"  width="500" height="350">
+			<img src="q6sharp2.png"  width="500" height="350">
+			<img src="q6sym2.png"  width="500" height="350">
+			</div>
+			
+			<div style="display: flex;">
+			<img src="q6l3.png"  width="500" height="350">
+			<img src="q6sharp3.png"  width="500" height="350">
+			<img src="q6sym3.png"  width="500" height="350">
+			</div>
+
+			<div style="display: flex;">
+			<img src="q6l4.png"  width="500" height="350">
+			<img src="q6sharp4.png"  width="500" height="350">
+			<img src="q6sym4.png"  width="500" height="350">
+			</div>
+			
             
+        </ol>
+		<!-- For Extra Credits -->
+        <ol>
+            <li> <b>For Extra Credits: <b><br>
+				We've also implemented sqrt 3 subdivision method. The implementation is actually very similar to loop subdivision.<br>
+				First we add a VertexIter HalfedgeMesh::splitFace( FaceIter f0 ) function that takes in a face and add a new vertex on its barycenter. Very similar to the splitEdge function in q5. <br>
+				Then we implement the subdivision: First we calculate the new positions according to the weights in Prof. Leif Kobbelt (btw, I've had the pleasure to listen to his lecture before and it's the reason I've chosen this.)<br>
+				Next we iterate over all faces and split them, then flip the old edges and update the positions.<br>
+				To try sqrt 3 subdivision, replace the old upsample function with the annotated one.<br>
+
+				<li><br>
+			<div class="center">
+				<img src="sqrt.png" alt="after splits" width="500" >
+			</div>
+			<div class="center">
+				Split face details
+			</div>
+			<li> Here we show the effect of sqrt 3 subdivision on cube. </li>
+			<div style="display: flex;">
+				<img src="cube.png"  width="500" height="350">
+				<img src="cubesqrt1.png"  width="500" height="350">
+			</div>
+				<div style="display: flex;">
+				<img src="cubesqrt2.png"  width="500" height="350">
+				<img src="cubesqrt3.png"  width="500" height="350">
+				</div>
+			<li> And here shows the comparison between sqrt 3 subdivision and loop subdivision. I think sqrt 3 subdivision is more likely to create more regular triangles. (Here below, the left one is loop subdivision and the right one is sqrt 3 subdivision. In some areas, triangles in sqrt 3 is more regular.)</li>
+			<div style="display: flex;">
+			<img src="cowloop.png"  width="500" height="350">
+			<img src="cowsqrt.png"  width="500" height="350">
+			</div>
         </ol>
     </section>
 </body>
